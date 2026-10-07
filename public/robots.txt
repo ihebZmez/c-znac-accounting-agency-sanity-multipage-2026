@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://znac.vercel.app/sitemap.xml
