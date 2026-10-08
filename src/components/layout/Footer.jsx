@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import {
   Building2,
@@ -10,50 +9,57 @@ import {
   Youtube,
   Linkedin,
 } from "lucide-react";
-import gymConfig from "../../config/gymConfig";
 import { useSiteSettings } from "../../hooks/useSiteSettings";
 
 const Footer = () => {
-  const { t } = useTranslation();
   const { data: settings } = useSiteSettings();
   const site = {
-    ...gymConfig,
-    ...settings,
-    gymName: settings?.gymName || settings?.name || gymConfig.name,
-    social: { ...gymConfig.social, ...settings?.social },
+    name: settings?.gymName || settings?.shortName || "Cabinet de conseil",
+    description:
+      settings?.footer?.description ||
+      settings?.description ||
+      "Conseil financier, juridique, fiscal et stratégique.",
+    phone: settings?.phone || "",
+    email: settings?.email || "",
+    address: settings?.address || "",
+    social: settings?.social || {},
   };
-
   const socialLinks = [
     { icon: Facebook, url: site.social.facebook, label: "Facebook" },
     { icon: Instagram, url: site.social.instagram, label: "Instagram" },
     { icon: Youtube, url: site.social.youtube, label: "YouTube" },
     { icon: Linkedin, url: site.social.linkedin, label: "LinkedIn" },
   ];
-
-  const navLinks = [
-    { path: "/", label: "Accueil" },
-    { path: "/#expertises", label: "Expertises" },
-    { path: "/corporate", label: "Services" },
-    { path: "/actualites", label: "Actualités & insights" },
-    { path: "/contact", label: "Nous contacter" },
-  ];
+  const navLinks = Array.isArray(settings?.footer?.columns)
+    ? settings.footer.columns.flatMap((column) =>
+        (column.links || []).map((link) => ({
+          path: link.link,
+          label: link.label,
+        })),
+      )
+    : [
+        { path: "/", label: "Accueil" },
+        { path: "/services", label: "Services" },
+        { path: "/actualites", label: "Actualités & insights" },
+        { path: "/contact", label: "Nous contacter" },
+      ];
 
   return (
-    <footer className="bg-gym-bg border-t border-gym-border py-12 px-4 md:px-8">
+    <footer className="bg-navy border-t border-white/10 py-12 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-gym-orange flex items-center justify-center">
-                <Building2 className="w-5 h-5 text-gym-bg" />
+              <div className="w-10 h-10 rounded-lg bg-gold flex items-center justify-center">
+                <Building2 className="w-5 h-5 text-navy" />
               </div>
               <span className="text-white text-xl font-bold tracking-wider uppercase">
-                {site.gymName}
+                {site.name}
               </span>
             </div>
             <p className="text-white/40 text-sm leading-relaxed">
-              Conseil financier, juridique et stratégique pour les entreprises tunisiennes.
+              {site.description}
             </p>
           </div>
 
@@ -79,7 +85,7 @@ const Footer = () => {
             <h4 className="text-white font-semibold mb-4">Contact</h4>
             <ul className="space-y-3">
               <li className="flex items-center gap-3 text-white/40 text-sm">
-                <Phone className="w-4 h-4 shrink-0 text-gym-orange" />
+                <Phone className="w-4 h-4 shrink-0 text-gold" />
                 <a
                   href={`tel:${site.phone}`}
                   className="hover:text-white transition-colors"
@@ -88,7 +94,7 @@ const Footer = () => {
                 </a>
               </li>
               <li className="flex items-center gap-3 text-white/40 text-sm">
-                <Mail className="w-4 h-4 shrink-0 text-gym-orange" />
+                <Mail className="w-4 h-4 shrink-0 text-gold" />
                 <a
                   href={`mailto:${site.email}`}
                   className="hover:text-white transition-colors"
@@ -97,7 +103,7 @@ const Footer = () => {
                 </a>
               </li>
               <li className="flex items-center gap-3 text-white/40 text-sm">
-                <MapPin className="w-4 h-4 shrink-0 text-gym-orange" />
+                <MapPin className="w-4 h-4 shrink-0 text-gold" />
                 <span>{site.address}</span>
               </li>
             </ul>
@@ -120,7 +126,7 @@ const Footer = () => {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-white/5 border border-gym-border flex items-center justify-center text-white/40 hover:text-gym-orange hover:border-gym-orange/30 transition-all duration-300"
+                  className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:text-gold hover:border-gold/30 transition-all duration-300"
                   aria-label={social.label}
                 >
                   <social.icon className="w-4 h-4" />
@@ -131,12 +137,13 @@ const Footer = () => {
         </div>
 
         {/* Bottom */}
-        <div className="mt-10 pt-6 border-t border-gym-border flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-white/20 text-sm">
-            {t("footer.copyright", { gymName: site.gymName })}
+            {settings?.footer?.copyright ||
+              `© ${new Date().getFullYear()} ${site.name}. Tous droits réservés.`}
           </p>
           <p className="text-white/10 text-xs tracking-wider">
-            {t("footer.tagline")}
+            {settings?.tagline || "Confidentialité · Clarté · Performance"}
           </p>
         </div>
       </div>

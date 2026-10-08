@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -15,7 +15,6 @@ import {
   Youtube,
   Linkedin,
 } from "lucide-react";
-import gymConfig from "../config/gymConfig";
 import { useSiteSettings } from "../hooks/useSiteSettings";
 import Seo from "../components/seo/Seo";
 
@@ -26,11 +25,15 @@ const ContactPage = () => {
   const sectionRef = useRef(null);
   const { data: settings } = useSiteSettings();
   const site = {
-    ...gymConfig,
-    ...settings,
-    gymName: settings?.gymName || gymConfig.name,
-    social: { ...gymConfig.social, ...settings?.social },
-    hours: { ...gymConfig.hours, ...settings?.hours },
+    name: settings?.gymName || settings?.shortName || "Cabinet de conseil",
+    description: settings?.description || "",
+    email: settings?.email || "",
+    address: settings?.address || "",
+    city: settings?.city || "",
+    country: settings?.country || "",
+    mapsUrl: settings?.mapsUrl || "",
+    social: settings?.social || {},
+    hours: settings?.hours || {},
   };
 
   const contactInfo = [
@@ -92,11 +95,11 @@ const ContactPage = () => {
   return (
     <div
       ref={sectionRef}
-      className="min-h-screen pt-8 pb-20 px-4 md:px-8 bg-gym-bg"
+      className="min-h-screen bg-navy pt-8 pb-20 px-4 md:px-8"
     >
       <Seo
-        title="Contact Club Med Gym El Mourouj 1 | Adresse & Téléphone"
-        description="Contactez Club Med Gym à El Mourouj 1, Ben Arous. Retrouvez notre adresse, téléphone, horaires d'ouverture et les informations pour nous contacter."
+        title={`Contact ${site.name} | Adresse & Téléphone`}
+        description={site.description || `Contactez ${site.name} en Tunisie.`}
         canonical="/contact"
       />
       <div className="max-w-7xl mx-auto">
@@ -114,10 +117,10 @@ const ContactPage = () => {
               {contactInfo.map((info, index) => (
                 <div
                   key={index}
-                  className="contact-info-item flex items-start gap-4 p-4 bg-white/5 rounded-xl border border-gym-border hover:border-gym-orange/30 transition-all duration-300"
+                  className="contact-info-item flex items-start gap-4 p-4 bg-white/5 rounded-xl border border-white/10 hover:border-gold/30 transition-all duration-300"
                 >
-                  <div className="w-10 h-10 rounded-full bg-gym-orange/10 flex items-center justify-center flex-shrink-0">
-                    <info.icon className="w-5 h-5 text-gym-orange" />
+                  <div className="w-10 h-10 shrink-0 rounded-full bg-gold/10 flex items-center justify-center">
+                    <info.icon className="w-5 h-5 text-gold" />
                   </div>
                   <div>
                     <p className="text-white/40 text-xs uppercase tracking-wide">
@@ -126,7 +129,7 @@ const ContactPage = () => {
                     {info.href ? (
                       <a
                         href={info.href}
-                        className="text-white hover:text-gym-orange transition-colors"
+                        className="text-white hover:text-gold transition-colors"
                       >
                         {info.value}
                       </a>
@@ -139,7 +142,7 @@ const ContactPage = () => {
             </div>
 
             {/* Social */}
-            <div className="mt-6 p-4 bg-white/5 rounded-xl border border-gym-border">
+            <div className="mt-6 p-4 bg-white/5 rounded-xl border border-white/10">
               <h4 className="text-white/60 text-xs uppercase tracking-wide mb-4">
                 {t("contact.social")}
               </h4>
@@ -150,7 +153,7 @@ const ContactPage = () => {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-white/5 border border-gym-border flex items-center justify-center text-white/40 hover:text-gym-orange hover:border-gym-orange/30 transition-all duration-300"
+                    className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:text-gold hover:border-gold/30 transition-all duration-300"
                   >
                     <social.icon className="w-4 h-4" />
                   </a>
@@ -166,17 +169,23 @@ const ContactPage = () => {
         </div>
 
         {/* Map */}
-        <div className="mt-12 rounded-2xl overflow-hidden border border-gym-border h-110">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d799.2983992344604!2d10.2065891!3d36.7419239!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12fd3762f20eba97%3A0xa0bbc8e6a7f3e3c4!2sCMG%20club%20sports!5e0!3m2!1sfr!2stn!4v1789331476788!5m2!1sfr!2stn"
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title={`${site.gymName} location`}
-          />
+        <div className="mt-12 h-110 overflow-hidden rounded-2xl border border-white/10">
+          {site.mapsUrl ? (
+            <iframe
+              src={site.mapsUrl}
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title={`${site.name} location`}
+            />
+          ) : (
+            <div className="grid h-full place-items-center bg-white/5 text-white/40">
+              Carte de localisation configurée dans Sanity
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -1,16 +1,26 @@
-// src/pages/Home.jsx
-import ConsultingOverview from "../components/sections/ConsultingOverview";
+import AgencyHomepage from "../components/sections/AgencyHomepage";
 import Seo from "../components/seo/Seo";
+import { useSiteSettings } from "../hooks/useSiteSettings";
 
-const Home = () => (
-  <>
-    <Seo
-      title="ZNAC | Conseil financier, juridique & stratégique en Tunisie"
-      description="Cabinet de conseil financier, juridique, fiscal et stratégique pour les entreprises et les investisseurs étrangers en Tunisie."
-      canonical="/"
-    />
-    <ConsultingOverview />
-  </>
-);
+const Home = () => {
+  const { data: settings } = useSiteSettings();
+  const seo = settings?.seo || {};
+
+  return (
+    <>
+      <Seo
+        title={
+          seo.defaultTitle ||
+          settings?.tagline ||
+          "Votre partenaire stratégique"
+        }
+        description={seo.defaultDescription || settings?.description || ""}
+        canonical={seo.siteUrl ? new URL(seo.siteUrl).pathname : "/"}
+        image={seo.ogImage}
+      />
+      <AgencyHomepage />
+    </>
+  );
+};
 
 export default Home;

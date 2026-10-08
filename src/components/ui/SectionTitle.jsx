@@ -103,7 +103,10 @@ const SectionTitle = ({
   );
 
   return (
-    <div ref={ref} className={`mb-12 ${align === "left" ? "text-left" : "text-center"} ${className}`}>
+    <div
+      ref={ref}
+      className={`mb-12 ${align === "left" ? "text-left" : "text-center"} ${className}`}
+    >
       {badge && (
         <div className="badge-text inline-block mb-4">
           <div className="section-badge">
@@ -122,7 +125,7 @@ const SectionTitle = ({
 
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
           {title && (
-            <span className="text-white">
+            <span className="text-inherit">
               {title.split("").map((char, i) => (
                 <span key={i} className="title-char inline-block">
                   {char === " " ? "\u00A0" : char}
@@ -143,7 +146,9 @@ const SectionTitle = ({
       </div>
 
       {subtitle && (
-        <p className={`subtitle-text ${align === "left" ? "max-w-2xl" : "max-w-2xl mx-auto"} mt-4`}>
+        <p
+          className={`subtitle-text ${align === "left" ? "max-w-2xl" : "max-w-2xl mx-auto"} mt-4`}
+        >
           {subtitle}
         </p>
       )}

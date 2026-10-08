@@ -47,11 +47,16 @@ const News = () => {
   if (!safeNewsItems.length) return null;
 
   return (
-    <section ref={sectionRef} className="py-16 px-4 md:px-8 bg-white border-b border-navy/10">
+    <section
+      ref={sectionRef}
+      className="py-16 px-4 md:px-8 bg-white border-b border-navy/10"
+    >
       <div className="max-w-7xl mx-auto">
         <div className="mb-10 max-w-2xl">
           <p className="section-kicker">À la une</p>
-          <h2 className="section-heading text-ink">Actualités et réflexion <span>professionnelle.</span></h2>
+          <h2 className="section-heading text-ink">
+            Actualités et réflexion <span>professionnelle.</span>
+          </h2>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -70,16 +75,38 @@ const News = () => {
                 <div className="absolute inset-0 bg-linear-to-t from-navy/70 via-transparent to-transparent" />
               </div>
               <div className="p-5">
-                <h3 className="text-lg font-bold text-ink group-hover:text-gold transition-colors">{item.title}</h3>
-                {item.coachName && <p className="mt-1 text-sm font-semibold text-gold">Avec {item.coachName}</p>}
-                <p className="mt-2 text-sm leading-relaxed text-ink/60">{item.description}</p>
+                <h3 className="text-lg font-bold text-ink group-hover:text-gold transition-colors">
+                  {item.title}
+                </h3>
+                {item.coachName && (
+                  <p className="mt-1 text-sm font-semibold text-gold">
+                    Avec {item.coachName}
+                  </p>
+                )}
+                <p className="mt-2 text-sm leading-relaxed text-ink/60">
+                  {item.description}
+                </p>
                 <div className="mt-4 flex items-center gap-3 border-t border-navy/10 pt-4 text-xs text-ink/55">
-                  {item.day && <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4 text-gold" />{item.day}</span>}
-                  {item.time && <span className="flex items-center gap-1.5"><Clock className="w-4 h-4 text-gold" />{item.time}</span>}
+                  {item.day && (
+                    <span className="flex items-center gap-1.5">
+                      <Calendar className="w-4 h-4 text-gold" />
+                      {item.day}
+                    </span>
+                  )}
+                  {item.time && (
+                    <span className="flex items-center gap-1.5">
+                      <Clock className="w-4 h-4 text-gold" />
+                      {item.time}
+                    </span>
+                  )}
                 </div>
                 {item.phone && (
-                  <a href={`tel:${item.phone}`} className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-navy px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-gold hover:text-navy">
-                    {item.ctaLabel || "Nous contacter"}<ArrowUpRight className="w-4 h-4" />
+                  <a
+                    href={`tel:${item.phone}`}
+                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-navy px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-gold hover:text-navy"
+                  >
+                    {item.ctaLabel || "Nous contacter"}
+                    <ArrowUpRight className="w-4 h-4" />
                   </a>
                 )}
               </div>

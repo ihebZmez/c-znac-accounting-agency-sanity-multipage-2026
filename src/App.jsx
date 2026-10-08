@@ -4,17 +4,12 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
-import BackgroundMusic from "./components/layout/BackgroundMusic";
 import WhatsAppButton from "./components/ui/WhatsAppButton";
 import Home from "./pages/Home";
-import Activities from "./pages/Activities";
-import Pricing from "./pages/Pricing";
-import CorporatePage from "./pages/CorporatePage";
-import Schedule from "./pages/Schedule";
+import ServicesPage from "./pages/ServicesPage";
+import ServiceDetail from "./pages/ServiceDetail";
 import Contact from "./pages/Contact";
-import PersonalTrainingPage from "./pages/PersonalTrainingPage";
 import NewsPage from "./pages/NewsPage";
-import ShopPage from "./pages/ShopPage";
 import { isPackage1SiteVitrine } from "./config/packageMode";
 
 function App() {
@@ -33,35 +28,19 @@ function App() {
       <PageTransition>
         <main className="pt-20">
           <Routes>
-            {/* Main */}
             <Route path="/" element={<Home />} />
-
-            {/* Existing */}
-            <Route path="/activites" element={<Activities />} />
-            <Route path="/tarifs" element={<Pricing />} />
-            {!package1SiteVitrine && (
-              <Route
-                path="/coaching-personnel"
-                element={<PersonalTrainingPage />}
-              />
-            )}
-            {!package1SiteVitrine && (
-              <Route path="/corporate" element={<CorporatePage />} />
-            )}
-            <Route path="/planning" element={<Schedule />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/services/:slug" element={<ServiceDetail />} />
             <Route path="/contact" element={<Contact />} />
-
-            {/* New dedicated pages */}
             <Route path="/actualites" element={<NewsPage />} />
             {!package1SiteVitrine && (
-              <Route path="/shop" element={<ShopPage />} />
+              <Route path="/corporate" element={<Contact />} />
             )}
           </Routes>
         </main>
       </PageTransition>
       <Footer />
       <WhatsAppButton />
-      <BackgroundMusic />
     </BrowserRouter>
   );
 }

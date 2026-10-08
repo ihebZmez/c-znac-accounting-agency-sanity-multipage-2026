@@ -35,27 +35,6 @@ export const ACTIVITIES_QUERY = `*[_type == "activity" && active == true] | orde
   duration
 }`;
 
-export const SCHEDULE_QUERY = `*[_type == "classSchedule" && active == true] | order(day asc, time asc) {
-  _id,
-  day,
-  time,
-  room,
-  level,
-  "activity": activity->{ title, icon, "slug": slug.current },
-  "coach": coach->{ name, image }
-}`;
-
-export const COACHES_QUERY = `*[_type == "coach" && active == true] | order(order asc) {
-  _id,
-  name,
-  role,
-  image,
-  specialties,
-  experience,
-  bio,
-  instagram
-}`;
-
 export const TESTIMONIALS_QUERY = `*[_type == "testimonial" && active == true] | order(order asc) {
   _id,
   name,
@@ -68,14 +47,144 @@ export const TESTIMONIALS_QUERY = `*[_type == "testimonial" && active == true] |
 
 export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings"][0] {
   gymName,
+  shortName,
   tagline,
+  description,
+  shortDescription,
+  foundedYear,
+  logo,
+  darkLogo,
+  favicon,
+  brandColors,
+  typography,
   phone,
   whatsapp,
   email,
   address,
+  city,
+  country,
+  mapsUrl,
   social,
   hours,
+  header,
+  footer,
+  seo,
+  homepage,
+  homepageContent {
+    videoIntroduction {
+      enabled,
+      title,
+      description,
+      video,
+      poster,
+      externalUrl,
+      ctaLabel,
+      ctaLink
+    },
+    community {
+      enabled,
+      title,
+      description,
+      selectedPosts[] -> {
+        _id,
+        title,
+        description,
+        image,
+        date,
+        category,
+        link,
+        featured,
+        order
+      }
+    },
+    faq {
+      enabled,
+      title,
+      description,
+      selectedFaqs[] -> {
+        _id,
+        question,
+        answer,
+        category,
+        active,
+        featured,
+        order
+      }
+    }
+  },
   heroPoster
+}`;
+
+export const FAQS_QUERY = `*[_type == "faq" && active == true] | order(order asc, featured desc) {
+  _id,
+  question,
+  answer,
+  category,
+  active,
+  featured,
+  order
+}`;
+
+export const SERVICES_QUERY = `*[_type == "service" && active == true] | order(order asc) {
+  _id,
+  title,
+  "slug": slug.current,
+  shortDescription,
+  description,
+  icon,
+  coverImage,
+  heroImage,
+  category,
+  features,
+  benefits,
+  ctaLabel,
+  ctaLink,
+  seoTitle,
+  seoDescription,
+  order
+}`;
+
+export const EXPERTISES_QUERY = `*[_type == "expertise" && active == true] | order(order asc) {
+  _id,
+  title,
+  description,
+  icon,
+  image,
+  link,
+  order
+}`;
+
+export const TEAM_QUERY = `*[_type == "teamMember" && active == true] | order(order asc) {
+  _id,
+  name,
+  position,
+  biography,
+  photo,
+  linkedin,
+  email,
+  expertise,
+  order
+}`;
+
+export const PARTNERS_QUERY = `*[_type == "partner" && active == true] | order(order asc) {
+  _id,
+  name,
+  logo,
+  website,
+  description,
+  category,
+  order
+}`;
+
+export const PAGES_QUERY = `*[_type == "page" && active == true] | order(title asc) {
+  _id,
+  title,
+  "slug": slug.current,
+  hero,
+  sections,
+  seoTitle,
+  seoDescription,
+  ogImage
 }`;
 
 export const PROMOTIONS_QUERY = `*[_type == "promotion" && active == true
@@ -94,72 +203,4 @@ export const PROMOTIONS_QUERY = `*[_type == "promotion" && active == true
   endDate,
   highlight,
   accent
-}`;
-
-export const TRANSFORMATIONS_QUERY = `*[_type == "transformation" && active == true && consent == true]
-  | order(featured desc, order asc) {
-  _id,
-  memberName,
-  memberAge,
-  duration,
-  program,
-  beforeImage,
-  afterImage,
-  weightLoss,
-  muscleGain,
-  results,
-  quote,
-  rating,
-  featured
-}`;
-
-export const CORPORATE_QUERY = `*[_type == "corporateOffer" && active == true] | order(order asc)[0] {
-  _id,
-  title,
-  subtitle,
-  description,
-  benefits,
-  services,
-  image,
-  logoStrip,
-  startingPrice,
-  minimumEmployees,
-  ctaLabel,
-  ctaLink,
-  contactEmail,
-  contactPhone
-}`;
-
-export const PARTNER_PRODUCTS_QUERY = `*[_type == "partnerProduct" && active == true]
-  | order(featured desc, order asc) {
-  _id,
-  name,
-  brand,
-  category,
-  description,
-  image,
-  priceLabel,
-  discountLabel,
-  ctaLabel,
-  ctaType,
-  ctaLink,
-  whatsappMessage,
-  partnerLogo,
-  featured
-}`;
-
-export const PERSONAL_TRAINING_QUERY = `*[_type == "personalTraining" && active == true]
-  | order(order asc)[0] {
-  _id,
-  eyebrow,
-  title,
-  subtitle,
-  description,
-  pillars,
-  image,
-  packages,
-  startingPrice,
-  ctaLabel,
-  ctaLink,
-  note
 }`;

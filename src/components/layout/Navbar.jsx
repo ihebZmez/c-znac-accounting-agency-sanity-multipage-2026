@@ -26,23 +26,27 @@ const Navbar = () => {
   const mobileOverlayRef = useRef(null);
   const mobileItemsRef = useRef([]);
 
-  const agencyName = settings?.gymName || "ZNAC · Conseil de confiance";
+  const agencyName =
+    settings?.gymName || settings?.shortName || "Cabinet de conseil";
+  const configuredNavigation = Array.isArray(settings?.header?.navigation)
+    ? settings.header.navigation
+    : [
+        { label: "Accueil", link: "/" },
+        { label: "Expertises", link: "/#expertises" },
+        { label: "Services", link: "/services" },
+        { label: "Investisseurs étrangers", link: "/#investisseurs" },
+        { label: "À propos", link: "/#team" },
+        { label: "Insights", link: "/actualites" },
+        { label: "Contact", link: "/contact" },
+      ];
+  const navLinks = configuredNavigation.map((item) => ({
+    path: item.link,
+    title: item.label,
+  }));
+  const moreLinks = [];
 
-  const navLinks = [
-    { path: "/", title: "Accueil" },
-    { path: "/#expertises", title: "Notre expertise" },
-    { path: "/corporate", title: "Services" },
-    { path: "/#approche", title: "Méthode" },
-    { path: "/actualites", title: "Actualités" },
-    { path: "/contact", title: "Contact" },
-  ].filter(Boolean);
-
-  const moreLinks = [
-    { path: "/corporate", title: "Entreprise & stratégie" },
-    { path: "/actualites", title: "Insights & actualités" },
-  ].filter(Boolean);
-
-  const handleBookTrial = () => navigate("/contact");
+  const handleBookTrial = () =>
+    navigate(settings?.header?.ctaLink || "/contact");
 
   // Close "Plus" dropdown when clicking outside
   useEffect(() => {
@@ -153,31 +157,32 @@ const Navbar = () => {
           transition: "padding 0.4s",
         }}
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="mx-auto flex min-w-0 max-w-7xl items-center justify-between gap-4">
           {/* Logo */}
-          <NavLink to="/" className="flex items-center gap-3">
+          <NavLink
+            to="/"
+            className="flex min-w-0 max-w-48 items-center gap-2.5 shrink-0"
+          >
             <div
               ref={logoRef}
-              className="w-10 h-10 shrink-0 rounded-lg bg-gym-orange flex items-center justify-center"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gold"
             >
-              <Building2 className="w-5 h-5 text-gym-bg" />
+              <Building2 className="h-5 w-5 text-navy" />
             </div>
-            <span className="text-white text-lg font-bold tracking-wider uppercase">
+            <span className="min-w-0 whitespace-nowrap text-base font-bold uppercase leading-none tracking-[0.08em] text-white sm:text-lg">
               {agencyName}
             </span>
           </NavLink>
 
           {/* Desktop Links */}
-          <ul className="hidden md:flex items-center gap-7 list-none m-0 p-0">
+          <ul className="hidden list-none gap-4 p-0 m-0 lg:flex lg:items-center">
             {navLinks.map((link, i) => (
               <li key={link.path} ref={(el) => (linksRef.current[i] = el)}>
                 <NavLink
                   to={link.path}
                   className={({ isActive }) =>
-                    `text-sm font-medium uppercase tracking-wider transition-colors duration-300 relative pb-1 ${
-                      isActive
-                        ? "text-gym-orange"
-                        : "text-white/60 hover:text-white"
+                    `whitespace-nowrap text-[0.68rem] font-semibold uppercase leading-none tracking-[0.08em] transition-colors duration-300 relative pb-1 ${
+                      isActive ? "text-gold" : "text-white/60 hover:text-white"
                     }`
                   }
                 >
@@ -192,9 +197,7 @@ const Navbar = () => {
                 <button
                   onClick={() => setMoreOpen((o) => !o)}
                   className={`flex items-center gap-1 text-sm font-medium uppercase tracking-wider transition-colors duration-300 ${
-                    moreOpen
-                      ? "text-gym-orange"
-                      : "text-white/60 hover:text-white"
+                    moreOpen ? "text-gold" : "text-white/60 hover:text-white"
                   }`}
                 >
                   Plus
@@ -206,7 +209,7 @@ const Navbar = () => {
                 </button>
 
                 {moreOpen && (
-                  <div className="absolute top-full mt-3 right-0 min-w-45 bg-gym-bg-light rounded-xl border border-gym-border shadow-2xl overflow-hidden py-2">
+                  <div className="absolute top-full mt-3 right-0 min-w-45 rounded-xl border border-white/10 bg-navy-light shadow-2xl overflow-hidden py-2">
                     {moreLinks.map((link) => (
                       <NavLink
                         key={link.path}
@@ -236,9 +239,9 @@ const Navbar = () => {
             <button
               ref={ctaRef}
               onClick={handleBookTrial}
-              className="hidden md:block bg-gym-orange text-gym-bg px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 hover:bg-gym-orange-light hover:shadow-lg hover:shadow-gym-orange/25"
+              className="hidden md:block bg-gold text-navy px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 hover:bg-gold-light hover:shadow-lg hover:shadow-gold/25"
             >
-              {t("nav.contactUs")}
+              {settings?.header?.ctaText || t("nav.contactUs")}
             </button>
 
             <button
@@ -262,7 +265,7 @@ const Navbar = () => {
       {/* Mobile Drawer */}
       <div
         ref={mobileMenuRef}
-        className="fixed top-0 right-0 bottom-0 w-[min(340px,90vw)] bg-gym-bg border-l border-gym-border z-50 transform translate-x-full flex flex-col p-8 overflow-y-auto"
+        className="fixed top-0 right-0 bottom-0 z-50 flex w-[min(340px,90vw)] flex-col overflow-y-auto border-l border-white/10 bg-navy p-8 transform translate-x-full"
       >
         <div className="flex justify-between items-center mb-8">
           <span className="text-white font-bold tracking-wider uppercase">
@@ -332,9 +335,9 @@ const Navbar = () => {
               closeMenu();
               handleBookTrial();
             }}
-            className="w-full bg-gym-orange text-gym-bg py-4 rounded-full font-bold uppercase tracking-wider"
+            className="w-full bg-gold text-navy py-4 rounded-full font-bold uppercase tracking-wider"
           >
-            {t("nav.contactUs")}
+            {settings?.header?.ctaText || t("nav.contactUs")}
           </button>
         </div>
       </div>
