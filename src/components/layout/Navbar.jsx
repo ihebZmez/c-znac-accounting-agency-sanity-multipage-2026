@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Menu, X, Building2, ChevronDown } from "lucide-react";
 import LanguageSwitcher from "./LanguageSwitcher";
+import SanityImage from "../common/SanityImage";
 import { useSiteSettings } from "../../hooks/useSiteSettings";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -167,7 +168,16 @@ const Navbar = () => {
               ref={logoRef}
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gold"
             >
-              <Building2 className="h-5 w-5 text-navy" />
+              {settings?.logo ? (
+                <SanityImage
+                  source={settings.logo}
+                  alt={agencyName}
+                  width={80}
+                  className="h-full w-full rounded-lg object-contain p-1"
+                />
+              ) : (
+                <Building2 className="h-5 w-5 text-navy" />
+              )}
             </div>
             <span className="min-w-0 whitespace-nowrap text-base font-bold uppercase leading-none tracking-[0.08em] text-white sm:text-lg">
               {agencyName}

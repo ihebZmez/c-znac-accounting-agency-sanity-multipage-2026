@@ -10,6 +10,7 @@ import {
   Linkedin,
 } from "lucide-react";
 import { useSiteSettings } from "../../hooks/useSiteSettings";
+import SanityImage from "../common/SanityImage";
 
 const Footer = () => {
   const { data: settings } = useSiteSettings();
@@ -52,7 +53,16 @@ const Footer = () => {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-lg bg-gold flex items-center justify-center">
-                <Building2 className="w-5 h-5 text-navy" />
+                {settings?.logo ? (
+                  <SanityImage
+                    source={settings.logo}
+                    alt={site.name}
+                    width={80}
+                    className="h-full w-full rounded-lg object-contain p-1"
+                  />
+                ) : (
+                  <Building2 className="w-5 h-5 text-navy" />
+                )}
               </div>
               <span className="text-white text-xl font-bold tracking-wider uppercase">
                 {site.name}

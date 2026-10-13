@@ -87,6 +87,19 @@ const News = () => {
                   {item.description}
                 </p>
                 <div className="mt-4 flex items-center gap-3 border-t border-navy/10 pt-4 text-xs text-ink/55">
+                  {item.category && <span>{item.category}</span>}
+                  {(item.date || item.publishedAt) && (
+                    <span className="flex items-center gap-1.5">
+                      <Calendar className="w-4 h-4 text-gold" />
+                      {new Date(
+                        item.date || item.publishedAt,
+                      ).toLocaleDateString("fr-FR", {
+                        day: "2-digit",
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </span>
+                  )}
                   {item.day && (
                     <span className="flex items-center gap-1.5">
                       <Calendar className="w-4 h-4 text-gold" />
@@ -107,6 +120,16 @@ const News = () => {
                   >
                     {item.ctaLabel || "Nous contacter"}
                     <ArrowUpRight className="w-4 h-4" />
+                  </a>
+                )}
+                {item.link && (
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-navy/15 px-4 py-2.5 text-sm font-semibold text-navy transition-colors hover:border-gold hover:text-gold"
+                  >
+                    Lire l’article <ArrowUpRight className="w-4 h-4" />
                   </a>
                 )}
               </div>

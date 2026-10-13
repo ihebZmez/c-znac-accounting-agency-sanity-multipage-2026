@@ -30,6 +30,7 @@ import { useTeam } from "../../hooks/useTeam";
 import { useTestimonials } from "../../hooks/useTestimonials";
 import { usePartners } from "../../hooks/usePartners";
 import { useNews } from "../../hooks/useNews";
+import { useFaqs } from "../../hooks/useFaqs";
 import CommunityCarousel from "./CommunityCarousel";
 import FaqAccordion from "./FaqAccordion";
 import VideoIntroduction from "./VideoIntroduction";
@@ -180,6 +181,7 @@ const AgencyHomepage = () => {
   const { data: testimonials = [] } = useTestimonials();
   const { data: partners = [] } = usePartners();
   const { data: news = [] } = useNews();
+  const { data: publishedFaqs = [] } = useFaqs();
 
   const agencyName =
     settings?.gymName || settings?.shortName || "Votre cabinet de conseil";
@@ -229,8 +231,15 @@ const AgencyHomepage = () => {
       ? communityConfig.selectedPosts
       : [],
   );
+  const selectedFaqs = Array.isArray(faqConfig.selectedFaqs)
+    ? faqConfig.selectedFaqs
+    : [];
   const faqItems = ordered(
-    Array.isArray(faqConfig.selectedFaqs) ? faqConfig.selectedFaqs : [],
+    selectedFaqs.length > 0
+      ? selectedFaqs
+      : Array.isArray(publishedFaqs)
+        ? publishedFaqs
+        : [],
   );
 
   return (
@@ -853,7 +862,8 @@ const AgencyHomepage = () => {
                     </div>
                     <div>
                       <p className="agency-news-meta">
-                        {item.category || "Actualité"} · {item.day || ""}
+                        {item.category || "Actualité"} ·{" "}
+                        {item.date || item.day || ""}
                       </p>
                       <h3>{item.title}</h3>
                       <p>{item.description}</p>
