@@ -32,7 +32,9 @@ const ContactPage = () => {
     address: settings?.address || "",
     city: settings?.city || "",
     country: settings?.country || "",
-    mapsUrl: settings?.mapsUrl || "",
+    mapsUrl:
+      settings?.mapsUrl ||
+      "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12772.33493950125!2d10.1588663!3d36.8404706!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12fd34a23e7112a1%3A0xf1e5b2ab4524ffb6!2sEl%20Menzah%204%2C%20Tunis!5e0!3m2!1sfr!2stn!4v1791997778004!5m2!1sfr!2stn",
     social: settings?.social || {},
   };
 

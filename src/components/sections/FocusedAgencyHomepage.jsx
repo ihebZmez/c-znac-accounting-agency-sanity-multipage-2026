@@ -253,7 +253,7 @@ const FocusedAgencyHomepage = () => {
       <section className="agency-why bg-paper text-ink">
         <div className="container grid gap-12 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
           <img
-            src="/images/Equipe/Tarek_Zouari.jpeg"
+            src="/images/Ai generative/conceil.jpg"
             alt="Tarek Zouari, dirigeant de ZNAC"
             loading="lazy"
             className="agency-reveal aspect-4/3 w-full rounded-xl object-cover object-top"
