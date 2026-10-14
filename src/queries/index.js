@@ -70,7 +70,11 @@ export const SERVICES_QUERY = `*[_type == "service" && active == true] | order(o
 export const EXPERTISES_QUERY = `*[_type == "expertise" && active == true] | order(order asc) {
   _id,
   title,
+  "slug": slug.current,
   description,
+  targetAudience,
+  documentsToPrepare,
+  accompanimentSteps,
   icon,
   image,
   link,

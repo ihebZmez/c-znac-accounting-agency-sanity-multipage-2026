@@ -4,6 +4,7 @@ import Seo from "../components/seo/Seo";
 import SanityImage from "../components/common/SanityImage";
 import { seoConfig } from "../config/seoConfig";
 import { useExpertises } from "../hooks/useExpertises";
+import { slugify } from "../lib/slugify";
 
 const ExpertisePage = () => {
   const { data: expertises = [] } = useExpertises();
@@ -67,15 +68,23 @@ const ExpertisePage = () => {
                 <h2>{expertise.title}</h2>
                 <p>{expertise.description}</p>
                 <Link
-                  to={
-                    expertise.link?.startsWith("/")
-                      ? expertise.link
-                      : "/services"
-                  }
+                  to={`/expertises/${expertise.slug || slugify(expertise.title)}`}
                   className="agency-link"
                 >
-                  Services associés <ArrowRight className="h-4 w-4" />
+                  Découvrir l’expertise <ArrowRight className="h-4 w-4" />
                 </Link>
+                {expertise.link && (
+                  <Link
+                    to={
+                      expertise.link.startsWith("/")
+                        ? expertise.link
+                        : "/services"
+                    }
+                    className="agency-link ml-5"
+                  >
+                    Services associés <ArrowRight className="h-4 w-4" />
+                  </Link>
+                )}
               </div>
             </article>
           ))}
