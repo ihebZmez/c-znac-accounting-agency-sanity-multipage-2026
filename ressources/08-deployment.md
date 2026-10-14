@@ -7,17 +7,17 @@
 3. Environment variables:
    - `VITE_SANITY_PROJECT_ID`
    - `VITE_SANITY_DATASET=production`
-4. Deploy → get URL like `https://clubmedgym.vercel.app`
+4. Deploy → get URL like `https://znac.vercel.app`
 5. Add URL to **Sanity CORS Origins** (allow credentials)
 
 ## Studio — Sanity Hosting
 
 ```bash
-cd clubmedgym
+cd znac
 npx sanity deploy
 ```
 
-Result: https://clubmedgym.sanity.studio
+Result: https://znac.sanity.studio
 
 Client Access
 sanity.io/manage → your project → Members

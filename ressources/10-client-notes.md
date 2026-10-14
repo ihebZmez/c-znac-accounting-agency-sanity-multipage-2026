@@ -3,10 +3,10 @@
 ## Selling Points
 
 1. **Premium First Impression** — cinematic hero, high-quality motion, luxury feel.
-2. **The Only Gym in Mourouj with This Level** — a real digital advantage.
+2. **The Only Accounting Agency in Mourouj with This Level** — a real digital advantage.
 3. **Built to Convert** — every page drives to trial / contact / WhatsApp.
 4. **Real Content Control** — the client edits everything in Sanity, no developer needed.
-5. **Local SEO Ready** — optimized for "salle de sport Mourouj", "gym Tunis".
+5. **Local SEO Ready** — optimized for "Acccounting agency Montplaisir", "Acccounting agency Tunis".
 
 ## Client Q&A
 

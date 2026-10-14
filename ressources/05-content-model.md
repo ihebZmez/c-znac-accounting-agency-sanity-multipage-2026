@@ -5,7 +5,7 @@ All content is managed in Sanity Studio. Each document type maps to a section on
 | Document          | Purpose                              | Managed by |
 | ----------------- | ------------------------------------ | ---------- |
 | Site Settings     | Name, phone, WhatsApp, social, hours | Client     |
-| News              | Club announcements                   | Client     |
+| News              | Znac announcements                   | Client     |
 | Promotions        | Time-limited offers                  | Client     |
 | Activities        | Class catalogue                      | Client     |
 | Coaches           | Team profiles                        | Client     |

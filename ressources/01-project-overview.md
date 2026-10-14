@@ -1,8 +1,8 @@
 # 01 — Project Overview
 
-## Club Med Gym
+## Zouari Njah Accounting Consulting Multipage (ZNAC)
 
-Premium multi-page website for a Tunisian gym & sports club.
+Premium multi-page website for a Tunisian ZNAC.
 
 ### Goal
 

@@ -60,6 +60,8 @@ export const SERVICES_QUERY = `*[_type == "service" && active == true] | order(o
   category,
   features,
   benefits,
+  commentDemarrer,
+  accompanimentOptions,
   ctaLabel,
   ctaLink,
   order

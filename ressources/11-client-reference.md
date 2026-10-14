@@ -15,7 +15,7 @@ Every section pushes toward a **trial session**, a **WhatsApp message**, or a **
 
 ### 1. Site Settings
 
-**What**: Your club name, phone, WhatsApp number, email, address, hours, social links.
+**What**: Your znac name, phone, WhatsApp number, email, address, hours, social links.
 **How to use**: Change your phone number or hours once → updated everywhere on the site.
 **Example**: Update Sunday hours from 08:00–14:00 to 09:00–15:00.
 
@@ -131,7 +131,7 @@ Appears on the home page instantly.
 
 ## ✍️ How to Edit Content (Every Day)
 
-1. Go to **clubmedgym.sanity.studio**
+1. Go to **znac.sanity.studio**
 2. Log in with your email
 3. Choose a section (Actualités, Promotions, Coaches…)
 4. Click **Create new** or click an existing item
@@ -185,7 +185,7 @@ Those stay with the developer.
 
 ## ✅ Quick Start Checklist
 
-- [ ] Log into clubmedgym.sanity.studio
+- [ ] Log into znac.sanity.studio
 - [ ] Update **Site Settings** with your real phone + WhatsApp
 - [ ] Add 3 **Actualités**
 - [ ] Add 1 **Promotion**

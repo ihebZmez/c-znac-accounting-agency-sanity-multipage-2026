@@ -112,26 +112,54 @@ const ServiceDetail = () => {
             ))}
           </div>
         </div>
-        {(service.benefits?.length || service.coverImage) > 0 && (
+        {service.benefits?.length > 0 && (
           <div className="container mt-20">
             <div className="rounded-2xl bg-white p-8 shadow-xl">
-              {service.benefits?.length > 0 && (
-                <>
-                  <h3 className="font-serif text-3xl">Bénéfices attendus</h3>
-                  <div className="mt-6 grid gap-3 md:grid-cols-2">
-                    {service.benefits.map((benefit) => (
-                      <div
-                        key={benefit}
-                        className="flex items-center gap-3 text-sm text-ink/70"
-                      >
-                        <Check className="w-4 h-4 text-gold" />
-                        {benefit}
-                      </div>
-                    ))}
+              <h3 className="font-serif text-3xl">Bénéfices attendus</h3>
+              <div className="mt-6 grid gap-3 md:grid-cols-2">
+                {service.benefits.map((benefit) => (
+                  <div
+                    key={benefit}
+                    className="flex items-center gap-3 text-sm text-ink/70"
+                  >
+                    <Check className="w-4 h-4 text-gold" />
+                    {benefit}
                   </div>
-                </>
-              )}
+                ))}
+              </div>
             </div>
+          </div>
+        )}
+        {(service.commentDemarrer ||
+          service.accompanimentOptions?.length > 0) && (
+          <div className="container mt-8 grid gap-5 lg:grid-cols-[.8fr_1.2fr]">
+            {service.commentDemarrer && (
+              <div className="rounded-2xl bg-navy p-8 text-white">
+                <p className="section-kicker">Votre premier pas</p>
+                <h3 className="mt-4 font-serif text-3xl">Comment démarrer</h3>
+                <p className="mt-5 leading-8 text-white/70">
+                  {service.commentDemarrer}
+                </p>
+              </div>
+            )}
+            {service.accompanimentOptions?.length > 0 && (
+              <div className="rounded-2xl border border-ink/10 bg-white p-8">
+                <p className="section-kicker">À votre rythme</p>
+                <h3 className="mt-4 font-serif text-3xl">
+                  Options d’accompagnement
+                </h3>
+                <div className="mt-6 divide-y divide-ink/10">
+                  {service.accompanimentOptions.map((option, index) => (
+                    <div key={option} className="flex items-center gap-4 py-4">
+                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gold/15 text-sm font-semibold text-gold">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <p className="font-medium text-ink/75">{option}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
       </section>
