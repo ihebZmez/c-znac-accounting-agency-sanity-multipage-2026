@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, Check, Globe2 } from "lucide-react";
 import Seo from "../components/seo/Seo";
 import SanityImage from "../components/common/SanityImage";
 import { useServices } from "../hooks/useServices";
+import { seoConfig } from "../config/seoConfig";
 
 const ServiceDetail = () => {
   const { slug } = useParams();
@@ -31,10 +32,17 @@ const ServiceDetail = () => {
   return (
     <div className="bg-navy text-white">
       <Seo
-        title={service.seoTitle || service.title}
-        description={service.seoDescription || service.shortDescription}
+        title={`${service.title} | ZNAC`}
+        description={seoConfig.serviceDetail.description}
         canonical={`/services/${slug}`}
-        image={service.coverImage}
+        image={seoConfig.serviceDetail.image}
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: service.title,
+          description: seoConfig.serviceDetail.description,
+          provider: { "@type": "AccountingService", name: "ZNAC" },
+        }}
       />
       <section className="relative overflow-hidden px-4 pb-20 pt-36 md:px-8">
         <div className="agency-grid absolute inset-0" />
@@ -62,15 +70,19 @@ const ServiceDetail = () => {
                 Découvrir le service <ArrowRight className="w-4 h-4" />
               </a>
             </div>
-            {service.heroImage ? (
+            {service.heroImage || service.coverImage ? (
               <SanityImage
-                source={service.heroImage}
+                source={service.heroImage || service.coverImage}
                 alt={service.title}
                 width={1000}
                 className="h-105 w-full rounded-2xl object-cover"
               />
             ) : (
-              <div className="h-105 rounded-2xl border border-white/10 bg-white/5" />
+              <img
+                src="/images/Equipe/Tarek_Zouari.jpeg"
+                alt="Expert-comptable de ZNAC"
+                className="h-105 w-full rounded-2xl object-cover object-top"
+              />
             )}
           </div>
         </div>

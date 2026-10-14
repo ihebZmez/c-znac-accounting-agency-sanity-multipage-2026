@@ -1,24 +1,29 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Menu, X, Building2, ChevronDown } from "lucide-react";
+import { Menu, X, Building2 } from "lucide-react";
 import LanguageSwitcher from "./LanguageSwitcher";
 import SanityImage from "../common/SanityImage";
 import { useSiteSettings } from "../../hooks/useSiteSettings";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const navLinks = [
+  { path: "/", title: "Accueil" },
+  { path: "/services", title: "Services" },
+  { path: "/expertises", title: "Expertises" },
+  { path: "/a-propos", title: "Le cabinet" },
+  { path: "/actualites", title: "Actualités" },
+  { path: "/faq", title: "FAQ" },
+  { path: "/contact", title: "Contact" },
+];
+
 const Navbar = () => {
-  const { t } = useTranslation();
   const navigate = useNavigate();
   const { data: settings } = useSiteSettings();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [moreOpen, setMoreOpen] = useState(false);
-  const moreRef = useRef(null);
-
   const navRef = useRef(null);
   const logoRef = useRef(null);
   const linksRef = useRef([]);
@@ -29,36 +34,7 @@ const Navbar = () => {
 
   const agencyName =
     settings?.gymName || settings?.shortName || "Cabinet de conseil";
-  const configuredNavigation = Array.isArray(settings?.header?.navigation)
-    ? settings.header.navigation
-    : [
-        { label: "Accueil", link: "/" },
-        { label: "Expertises", link: "/#expertises" },
-        { label: "Services", link: "/services" },
-        { label: "Investisseurs étrangers", link: "/#investisseurs" },
-        { label: "À propos", link: "/#team" },
-        { label: "Insights", link: "/actualites" },
-        { label: "Contact", link: "/contact" },
-      ];
-  const navLinks = configuredNavigation.map((item) => ({
-    path: item.link,
-    title: item.label,
-  }));
-  const moreLinks = [];
-
-  const handleBookTrial = () =>
-    navigate(settings?.header?.ctaLink || "/contact");
-
-  // Close "Plus" dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (moreRef.current && !moreRef.current.contains(e.target)) {
-        setMoreOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const handleBookTrial = () => navigate("/contact");
 
   useGSAP(() => {
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
@@ -200,46 +176,6 @@ const Navbar = () => {
                 </NavLink>
               </li>
             ))}
-
-            {/* "Plus" dropdown */}
-            {moreLinks.length > 0 && (
-              <li ref={moreRef} className="relative">
-                <button
-                  onClick={() => setMoreOpen((o) => !o)}
-                  className={`flex items-center gap-1 text-sm font-medium uppercase tracking-wider transition-colors duration-300 ${
-                    moreOpen ? "text-gold" : "text-white/60 hover:text-white"
-                  }`}
-                >
-                  Plus
-                  <ChevronDown
-                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                      moreOpen ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-
-                {moreOpen && (
-                  <div className="absolute top-full mt-3 right-0 min-w-45 rounded-xl border border-white/10 bg-navy-light shadow-2xl overflow-hidden py-2">
-                    {moreLinks.map((link) => (
-                      <NavLink
-                        key={link.path}
-                        to={link.path}
-                        onClick={() => setMoreOpen(false)}
-                        className={({ isActive }) =>
-                          `block px-4 py-2.5 text-sm transition-colors ${
-                            isActive
-                              ? "text-gym-orange bg-gym-orange/10"
-                              : "text-white/70 hover:text-white hover:bg-white/5"
-                          }`
-                        }
-                      >
-                        {link.title}
-                      </NavLink>
-                    ))}
-                  </div>
-                )}
-              </li>
-            )}
           </ul>
 
           {/* Right side */}
@@ -251,7 +187,7 @@ const Navbar = () => {
               onClick={handleBookTrial}
               className="hidden md:block bg-gold text-navy px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 hover:bg-gold-light hover:shadow-lg hover:shadow-gold/25"
             >
-              {settings?.header?.ctaText || t("nav.contactUs")}
+              Contact
             </button>
 
             <button
@@ -304,39 +240,6 @@ const Navbar = () => {
               </NavLink>
             </li>
           ))}
-
-          {/* More section in mobile */}
-          {moreLinks.length > 0 && (
-            <li className="pt-3 border-t border-gym-border">
-              <p className="text-white/30 text-[10px] uppercase tracking-[0.2em] mb-2">
-                Plus
-              </p>
-              <ul className="flex flex-col gap-4">
-                {moreLinks.map((link, i) => (
-                  <li
-                    key={link.path}
-                    ref={(el) =>
-                      (mobileItemsRef.current[navLinks.length + 1 + i] = el)
-                    }
-                  >
-                    <NavLink
-                      to={link.path}
-                      onClick={closeMenu}
-                      className={({ isActive }) =>
-                        `text-base font-medium uppercase tracking-wider transition-colors ${
-                          isActive
-                            ? "text-gym-orange"
-                            : "text-white/60 hover:text-white"
-                        }`
-                      }
-                    >
-                      {link.title}
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-            </li>
-          )}
         </ul>
 
         <div className="mt-auto pt-8">
@@ -347,7 +250,7 @@ const Navbar = () => {
             }}
             className="w-full bg-gold text-navy py-4 rounded-full font-bold uppercase tracking-wider"
           >
-            {settings?.header?.ctaText || t("nav.contactUs")}
+            Contact
           </button>
         </div>
       </div>

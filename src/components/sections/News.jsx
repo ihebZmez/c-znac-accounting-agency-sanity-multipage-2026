@@ -1,17 +1,19 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowUpRight, Calendar, Clock } from "lucide-react";
+import { ArrowUpRight, Calendar } from "lucide-react";
 import { useNews } from "../../hooks/useNews";
 import SanityImage from "../common/SanityImage";
 import LoadingSkeleton from "../common/LoadingSkeleton";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const EMPTY_NEWS_ITEMS = [];
+
 const News = () => {
   const sectionRef = useRef(null);
   const { data: newsItems = [], loading } = useNews();
-  const safeNewsItems = Array.isArray(newsItems) ? newsItems : [];
+  const safeNewsItems = Array.isArray(newsItems) ? newsItems : EMPTY_NEWS_ITEMS;
 
   useEffect(() => {
     if (!loading && safeNewsItems.length > 0) {
@@ -66,23 +68,28 @@ const News = () => {
               className="news-card overflow-hidden rounded-2xl border border-navy/10 bg-paper transition-all duration-500 group hover:-translate-y-1 hover:border-gold/60"
             >
               <div className="relative h-56 overflow-hidden">
-                <SanityImage
-                  source={item.image}
-                  alt={item.title}
-                  width={800}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
+                {item.image ? (
+                  <SanityImage
+                    source={item.image}
+                    alt={item.title}
+                    width={800}
+                    height={560}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <img
+                    src="/images/Equipe/Tarek_Zouari.jpeg"
+                    alt=""
+                    loading="lazy"
+                    className="h-full w-full object-cover object-top"
+                  />
+                )}
                 <div className="absolute inset-0 bg-linear-to-t from-navy/70 via-transparent to-transparent" />
               </div>
               <div className="p-5">
                 <h3 className="text-lg font-bold text-ink group-hover:text-gold transition-colors">
                   {item.title}
                 </h3>
-                {item.coachName && (
-                  <p className="mt-1 text-sm font-semibold text-gold">
-                    Avec {item.coachName}
-                  </p>
-                )}
                 <p className="mt-2 text-sm leading-relaxed text-ink/60">
                   {item.description}
                 </p>
@@ -100,28 +107,7 @@ const News = () => {
                       })}
                     </span>
                   )}
-                  {item.day && (
-                    <span className="flex items-center gap-1.5">
-                      <Calendar className="w-4 h-4 text-gold" />
-                      {item.day}
-                    </span>
-                  )}
-                  {item.time && (
-                    <span className="flex items-center gap-1.5">
-                      <Clock className="w-4 h-4 text-gold" />
-                      {item.time}
-                    </span>
-                  )}
                 </div>
-                {item.phone && (
-                  <a
-                    href={`tel:${item.phone}`}
-                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-navy px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-gold hover:text-navy"
-                  >
-                    {item.ctaLabel || "Nous contacter"}
-                    <ArrowUpRight className="w-4 h-4" />
-                  </a>
-                )}
                 {item.link && (
                   <a
                     href={item.link}

@@ -17,7 +17,6 @@ const Footer = () => {
   const site = {
     name: settings?.gymName || settings?.shortName || "Cabinet de conseil",
     description:
-      settings?.footer?.description ||
       settings?.description ||
       "Conseil financier, juridique, fiscal et stratégique.",
     phone: settings?.phone || "",
@@ -25,26 +24,21 @@ const Footer = () => {
     address: settings?.address || "",
     social: settings?.social || {},
   };
+  const navLinks = [
+    { path: "/", label: "Accueil" },
+    { path: "/services", label: "Services" },
+    { path: "/expertises", label: "Expertises" },
+    { path: "/a-propos", label: "Le cabinet" },
+    { path: "/actualites", label: "Actualités" },
+    { path: "/faq", label: "FAQ" },
+    { path: "/contact", label: "Contact" },
+  ];
   const socialLinks = [
     { icon: Facebook, url: site.social.facebook, label: "Facebook" },
     { icon: Instagram, url: site.social.instagram, label: "Instagram" },
     { icon: Youtube, url: site.social.youtube, label: "YouTube" },
     { icon: Linkedin, url: site.social.linkedin, label: "LinkedIn" },
   ];
-  const navLinks = Array.isArray(settings?.footer?.columns)
-    ? settings.footer.columns.flatMap((column) =>
-        (column.links || []).map((link) => ({
-          path: link.link,
-          label: link.label,
-        })),
-      )
-    : [
-        { path: "/", label: "Accueil" },
-        { path: "/services", label: "Services" },
-        { path: "/actualites", label: "Actualités & insights" },
-        { path: "/contact", label: "Nous contacter" },
-      ];
-
   return (
     <footer className="bg-navy border-t border-white/10 py-12 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
@@ -149,8 +143,7 @@ const Footer = () => {
         {/* Bottom */}
         <div className="mt-10 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-white/20 text-sm">
-            {settings?.footer?.copyright ||
-              `© ${new Date().getFullYear()} ${site.name}. Tous droits réservés.`}
+            {`© ${new Date().getFullYear()} ${site.name}. Tous droits réservés.`}
           </p>
           <p className="text-white/10 text-xs tracking-wider">
             {settings?.tagline || "Confidentialité · Clarté · Performance"}

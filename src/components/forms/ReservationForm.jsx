@@ -21,9 +21,7 @@ const ReservationForm = () => {
     name: "",
     phone: "",
     email: "",
-    activity: "",
-    date: "",
-    time: "",
+    service: "",
     message: "",
   });
 
@@ -45,9 +43,7 @@ const ReservationForm = () => {
           from_name: formData.name,
           from_email: formData.email,
           phone: formData.phone,
-          activity: formData.activity,
-          date: formData.date,
-          time: formData.time,
+          activity: formData.service,
           message: formData.message,
         },
         EMAILJS_PUBLIC_KEY,
@@ -59,9 +55,7 @@ const ReservationForm = () => {
           name: "",
           phone: "",
           email: "",
-          activity: "",
-          date: "",
-          time: "",
+          service: "",
           message: "",
         });
 
@@ -106,7 +100,7 @@ const ReservationForm = () => {
             className="w-full bg-white/5 border border-gym-border rounded-xl px-4 py-3.5 text-white placeholder-transparent focus:outline-none focus:border-gym-orange transition-colors duration-300"
           />
           <label className="absolute left-4 top-3.5 text-white/40 text-sm transition-all duration-300 pointer-events-none peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs peer-focus:text-gym-orange">
-            {t("reservation.form.name")}
+            {t("contact.form.name")}
           </label>
         </div>
 
@@ -121,7 +115,7 @@ const ReservationForm = () => {
             className="w-full bg-white/5 border border-gym-border rounded-xl px-4 py-3.5 text-white placeholder-transparent focus:outline-none focus:border-gym-orange transition-colors duration-300"
           />
           <label className="absolute left-4 top-3.5 text-white/40 text-sm transition-all duration-300 pointer-events-none peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs peer-focus:text-gym-orange">
-            {t("reservation.form.phone")}
+            {t("contact.form.phone")}
           </label>
         </div>
       </div>
@@ -137,19 +131,19 @@ const ReservationForm = () => {
           className="w-full bg-white/5 border border-gym-border rounded-xl px-4 py-3.5 text-white placeholder-transparent focus:outline-none focus:border-gym-orange transition-colors duration-300"
         />
         <label className="absolute left-4 top-3.5 text-white/40 text-sm transition-all duration-300 pointer-events-none peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs peer-focus:text-gym-orange">
-          {t("reservation.form.email")}
+          {t("contact.form.email")}
         </label>
       </div>
 
       <div className="relative">
         <select
-          name="activity"
-          value={formData.activity}
+          name="service"
+          value={formData.service}
           onChange={handleChange}
           className="w-full bg-white/5 border border-gym-border rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-gym-orange transition-colors duration-300 appearance-none"
         >
           <option value="" className="text-black">
-            {t("reservation.form.activity")}
+            {t("contact.form.service")}
           </option>
           <option value="finance" className="text-black">
             Finances & comptabilité
@@ -172,28 +166,6 @@ const ReservationForm = () => {
         </select>
       </div>
 
-      <div className="grid sm:grid-cols-2 gap-4">
-        <div className="relative">
-          <input
-            type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            className="w-full bg-white/5 border border-gym-border rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-gym-orange transition-colors duration-300"
-          />
-        </div>
-
-        <div className="relative">
-          <input
-            type="time"
-            name="time"
-            value={formData.time}
-            onChange={handleChange}
-            className="w-full bg-white/5 border border-gym-border rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-gym-orange transition-colors duration-300"
-          />
-        </div>
-      </div>
-
       <div className="relative">
         <textarea
           name="message"
@@ -204,7 +176,7 @@ const ReservationForm = () => {
           className="w-full bg-white/5 border border-gym-border rounded-xl px-4 py-3.5 text-white placeholder-transparent focus:outline-none focus:border-gym-orange transition-colors duration-300 resize-none"
         />
         <label className="absolute left-4 top-3.5 text-white/40 text-sm transition-all duration-300 pointer-events-none peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs peer-focus:text-gym-orange">
-          {t("reservation.form.message")}
+          {t("contact.form.message")}
         </label>
       </div>
 
@@ -225,7 +197,7 @@ const ReservationForm = () => {
         ) : (
           <>
             <Send className="w-4 h-4" />
-            {t("reservation.form.submit")}
+            {t("contact.form.submit")}
           </>
         )}
       </Button>
@@ -233,7 +205,7 @@ const ReservationForm = () => {
       {isSubmitted && (
         <div className="success-check flex items-center gap-3 p-4 bg-green-500/10 border border-green-500/30 rounded-xl text-green-400">
           <CheckCircle className="w-5 h-5 shrink-0" />
-          <span className="text-sm">{t("reservation.success")}</span>
+          <span className="text-sm">{t("contact.success")}</span>
         </div>
       )}
     </form>

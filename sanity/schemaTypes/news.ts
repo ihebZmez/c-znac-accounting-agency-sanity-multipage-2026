@@ -12,12 +12,6 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'coachName',
-      title: 'Nom du coach',
-      type: 'string',
-      description: 'Ex: Olfa, Ahmed, Sarah',
-    }),
-    defineField({
       name: 'description',
       title: 'Description courte',
       type: 'text',
@@ -33,38 +27,6 @@ export default defineType({
       title: 'Image / Affiche',
       type: 'image',
       options: {hotspot: true},
-    }),
-    defineField({
-      name: 'icons',
-      title: 'Icônes (emojis)',
-      type: 'array',
-      of: [{type: 'string'}],
-      description: 'Ex: 💃 🔥 💪 — un emoji par entrée',
-    }),
-    defineField({
-      name: 'day',
-      title: 'Jour',
-      type: 'string',
-      options: {
-        list: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche', 'Autre'],
-      },
-    }),
-    defineField({
-      name: 'time',
-      title: 'Heure',
-      type: 'string',
-      description: 'Ex: 17:45',
-    }),
-    defineField({
-      name: 'ctaLabel',
-      title: 'Texte du bouton',
-      type: 'string',
-      initialValue: 'Réservez votre place',
-    }),
-    defineField({
-      name: 'phone',
-      title: 'Téléphone à appeler',
-      type: 'string',
     }),
     defineField({
       name: 'publishedAt',
@@ -87,6 +49,6 @@ export default defineType({
     },
   ],
   preview: {
-    select: {title: 'title', subtitle: 'coachName', media: 'image'},
+    select: {title: 'title', subtitle: 'category', media: 'image'},
   },
 })

@@ -1,7 +1,6 @@
 export const NEWS_QUERY = `*[_type == "news" && active == true] | order(publishedAt desc) {
   _id,
   title,
-  coachName,
   description,
   image,
   category,
@@ -9,35 +8,7 @@ export const NEWS_QUERY = `*[_type == "news" && active == true] | order(publishe
   link,
   featured,
   order,
-  icons,
-  day,
-  time,
-  ctaLabel,
-  phone,
   publishedAt
-}`;
-
-export const PRICING_QUERY = `*[_type == "pricingPlan" && active == true] | order(order asc) {
-  _id,
-  name,
-  price,
-  currency,
-  period,
-  features,
-  popular,
-  ctaLabel
-}`;
-
-export const ACTIVITIES_QUERY = `*[_type == "activity" && active == true] | order(order asc) {
-  _id,
-  title,
-  "slug": slug.current,
-  description,
-  image,
-  icon,
-  category,
-  level,
-  duration
 }`;
 
 export const TESTIMONIALS_QUERY = `*[_type == "testimonial" && active == true] | order(order asc) {
@@ -56,12 +27,7 @@ export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings"][0] {
   tagline,
   description,
   shortDescription,
-  foundedYear,
   logo,
-  darkLogo,
-  favicon,
-  brandColors,
-  typography,
   phone,
   whatsapp,
   email,
@@ -69,55 +35,7 @@ export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings"][0] {
   city,
   country,
   mapsUrl,
-  social,
-  hours,
-  header,
-  footer,
-  seo,
-  homepage,
-  homepageContent {
-    videoIntroduction {
-      enabled,
-      title,
-      description,
-      video,
-      poster,
-      externalUrl,
-      ctaLabel,
-      ctaLink
-    },
-    community {
-      enabled,
-      title,
-      description,
-      selectedPosts[] -> {
-        _id,
-        title,
-        description,
-        image,
-        date,
-        category,
-        link,
-        featured,
-        order
-      }
-    },
-    faq {
-      enabled,
-      title,
-      description,
-      selectedFaqs[] -> {
-        _id,
-        question,
-        answer,
-        category,
-        active,
-        featured,
-        order
-      }
-    }
-  },
-  heroPoster
+  social
 }`;
 
 export const FAQS_QUERY = `*[_type == "faq" && active == true] | order(order asc, featured desc) {
@@ -144,8 +62,6 @@ export const SERVICES_QUERY = `*[_type == "service" && active == true] | order(o
   benefits,
   ctaLabel,
   ctaLink,
-  seoTitle,
-  seoDescription,
   order
 }`;
 
@@ -179,33 +95,4 @@ export const PARTNERS_QUERY = `*[_type == "partner" && active == true] | order(o
   description,
   category,
   order
-}`;
-
-export const PAGES_QUERY = `*[_type == "page" && active == true] | order(title asc) {
-  _id,
-  title,
-  "slug": slug.current,
-  hero,
-  sections,
-  seoTitle,
-  seoDescription,
-  ogImage
-}`;
-
-export const PROMOTIONS_QUERY = `*[_type == "promotion" && active == true
-  && (!defined(endDate) || endDate >= now())
-] | order(highlight desc, order asc) {
-  _id,
-  title,
-  subtitle,
-  description,
-  badgeText,
-  discountText,
-  image,
-  ctaLabel,
-  ctaLink,
-  startDate,
-  endDate,
-  highlight,
-  accent
 }`;

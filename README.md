@@ -129,32 +129,4 @@ detailed explanations, cool features, and exercises to boost your skills. Give i
   <img src="public/readme/jsmpro.png" alt="Project Banner">
 </a>
 
-These images replace/add:
-
-```
-/videos/gym-hero.mp4
-/videos/gym-cinematic.mp4
-/videos/gym-cta.mp4
-/images/equipment1.png
-/images/equipment2.png
-/images/equipment3.png
-/images/equipment4.png
-/images/equipment-placeholder.png
-/images/equipment-left.jpg
-/images/equipment-right.jpg
-/images/community/member1.jpg
-/images/community/member2.jpg
-/images/community/member3.jpg
-/images/community/member4.jpg
-/images/community/event1.jpg
-/images/community/event2.jpg
-/images/community/event3.jpg
-/images/community/club1.jpg
-/images/community/club2.jpg
-/images/community/club3.jpg
-```
-
-concurance:
-
-- https://www.galaxygym.tn/
-- https://www.arena-gym.com/
+Homepage video setup is documented in [DEPLOY.md](DEPLOY.md). The two Google Drive file IDs are provided through `VITE_HERO_VIDEO_ONE_FILE_ID` and `VITE_HERO_VIDEO_TWO_FILE_ID`.

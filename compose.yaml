@@ -3,8 +3,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: t-gym-multipage:latest
-    container_name: t-gym-multipage
+      args:
+        VITE_HERO_VIDEO_ONE_FILE_ID: ${VITE_HERO_VIDEO_ONE_FILE_ID:-}
+        VITE_HERO_VIDEO_TWO_FILE_ID: ${VITE_HERO_VIDEO_TWO_FILE_ID:-}
+    image: znac-agency:latest
+    container_name: znac-agency
     ports:
       - "${APP_PORT:-0001}:80"
     init: true

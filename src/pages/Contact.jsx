@@ -9,7 +9,6 @@ import {
   Phone,
   Mail,
   MapPin,
-  Clock,
   Facebook,
   Instagram,
   Youtube,
@@ -17,6 +16,7 @@ import {
 } from "lucide-react";
 import { useSiteSettings } from "../hooks/useSiteSettings";
 import Seo from "../components/seo/Seo";
+import { seoConfig } from "../config/seoConfig";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,13 +27,13 @@ const ContactPage = () => {
   const site = {
     name: settings?.gymName || settings?.shortName || "Cabinet de conseil",
     description: settings?.description || "",
+    phone: settings?.phone || "",
     email: settings?.email || "",
     address: settings?.address || "",
     city: settings?.city || "",
     country: settings?.country || "",
     mapsUrl: settings?.mapsUrl || "",
     social: settings?.social || {},
-    hours: settings?.hours || {},
   };
 
   const contactInfo = [
@@ -53,12 +53,6 @@ const ContactPage = () => {
       icon: MapPin,
       label: t("contact.info.address"),
       value: site.address,
-      href: null,
-    },
-    {
-      icon: Clock,
-      label: t("contact.info.hours"),
-      value: `${site.hours.weekday} · ${site.hours.saturday}`,
       href: null,
     },
   ];
@@ -97,17 +91,14 @@ const ContactPage = () => {
       ref={sectionRef}
       className="min-h-screen bg-navy pt-8 pb-20 px-4 md:px-8"
     >
-      <Seo
-        title={`Contact ${site.name} | Adresse & Téléphone`}
-        description={site.description || `Contactez ${site.name} en Tunisie.`}
-        canonical="/contact"
-      />
+      <Seo {...seoConfig.contact} />
       <div className="max-w-7xl mx-auto">
         <SectionTitle
           badge={t("contact.badge")}
           title={t("contact.title")}
           highlight={t("contact.titleHighlight")}
           subtitle={t("contact.subtitle")}
+          headingAs="h1"
         />
 
         <div className="grid lg:grid-cols-5 gap-8 mt-12">
@@ -182,9 +173,12 @@ const ContactPage = () => {
               title={`${site.name} location`}
             />
           ) : (
-            <div className="grid h-full place-items-center bg-white/5 text-white/40">
-              Carte de localisation configurée dans Sanity
-            </div>
+            <img
+              src="/images/Equipe/Tarek_Zouari.jpeg"
+              alt="Équipe du cabinet ZNAC"
+              loading="lazy"
+              className="h-full w-full object-cover object-center"
+            />
           )}
         </div>
       </div>

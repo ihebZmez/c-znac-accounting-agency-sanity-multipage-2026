@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://znac.vercel.app/sitemap.xml
+Sitemap: https://zouari-njah-accounting-consulting-multipage.vercel.app/sitemap.xml

@@ -13,8 +13,10 @@ const SectionTitle = ({
   number,
   className = "",
   align = "center",
+  headingAs = "h2",
 }) => {
   const ref = useRef(null);
+  const Heading = headingAs;
 
   useGSAP(
     () => {
@@ -123,7 +125,7 @@ const SectionTitle = ({
           </span>
         )}
 
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+        <Heading className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
           {title && (
             <span className="text-inherit">
               {title.split("").map((char, i) => (
@@ -142,7 +144,7 @@ const SectionTitle = ({
               ))}
             </span>
           )}
-        </h2>
+        </Heading>
       </div>
 
       {subtitle && (

@@ -57,8 +57,6 @@ export default defineType({
     defineField({name: 'benefits', title: 'Bénéfices', type: 'array', of: [{type: 'string'}]}),
     defineField({name: 'ctaLabel', title: 'Texte du CTA', type: 'string'}),
     defineField({name: 'ctaLink', title: 'Lien du CTA', type: 'url'}),
-    defineField({name: 'seoTitle', title: 'Titre SEO', type: 'string'}),
-    defineField({name: 'seoDescription', title: 'Description SEO', type: 'text', rows: 3}),
     defineField({name: 'order', title: 'Ordre d’affichage', type: 'number', initialValue: 0}),
     defineField({
       name: 'active',

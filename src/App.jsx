@@ -10,6 +10,9 @@ import ServicesPage from "./pages/ServicesPage";
 import ServiceDetail from "./pages/ServiceDetail";
 import Contact from "./pages/Contact";
 import NewsPage from "./pages/NewsPage";
+import ExpertisePage from "./pages/ExpertisePage";
+import Company from "./pages/Company";
+import FaqPage from "./pages/FaqPage";
 import { isPackage1SiteVitrine } from "./config/packageMode";
 
 function App() {
@@ -31,6 +34,9 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/services/:slug" element={<ServiceDetail />} />
+            <Route path="/expertises" element={<ExpertisePage />} />
+            <Route path="/a-propos" element={<Company />} />
+            <Route path="/faq" element={<FaqPage />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/actualites" element={<NewsPage />} />
             {!package1SiteVitrine && (

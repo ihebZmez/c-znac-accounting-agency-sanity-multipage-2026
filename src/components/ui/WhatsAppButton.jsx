@@ -1,17 +1,15 @@
 import { useState, useEffect } from "react";
 import { MessageCircle, X } from "lucide-react";
-import { useTranslation } from "react-i18next";
-import gymConfig from "../../config/gymConfig";
+import siteConfig from "../../config/siteConfig";
 import { useSiteSettings } from "../../hooks/useSiteSettings";
 import gsap from "gsap";
 
 const WhatsAppButton = () => {
-  const { t } = useTranslation();
   const { data: settings } = useSiteSettings();
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const siteName = settings?.gymName || gymConfig.name;
-  const whatsappNumber = settings?.whatsapp || gymConfig.whatsapp;
+  const siteName = settings?.gymName || siteConfig.name;
+  const whatsappNumber = settings?.whatsapp || siteConfig.whatsapp;
 
   useEffect(() => {
     // Show after scroll
@@ -47,12 +45,12 @@ const WhatsAppButton = () => {
 
   const quickMessages = [
     {
-      label: "Réserver une séance",
-      message: `Bonjour, je souhaite réserver une séance d'essai à ${siteName}.`,
+      label: "Parler de mon projet",
+      message: `Bonjour, je souhaite discuter de mon projet avec ${siteName}.`,
     },
     {
-      label: "Demander les tarifs",
-      message: `Bonjour, je souhaite avoir plus d'informations sur les abonnements de ${siteName}.`,
+      label: "Découvrir vos services",
+      message: `Bonjour, je souhaite en savoir plus sur les services de ${siteName}.`,
     },
     {
       label: "Autre demande",
