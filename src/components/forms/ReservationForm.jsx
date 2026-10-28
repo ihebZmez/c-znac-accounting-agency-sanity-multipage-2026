@@ -1,14 +1,11 @@
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import emailjs from "@emailjs/browser";
 import { Send, Loader2, CheckCircle } from "lucide-react";
 import gsap from "gsap";
 import Button from "../ui/Button";
 
-// Replace with your EmailJS credentials
-const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+// Web3Forms access key (get it at https://web3forms.com)
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
 const ReservationForm = () => {
   const { t } = useTranslation();
@@ -35,52 +32,59 @@ const ReservationForm = () => {
     setError(null);
 
     try {
-      // Using EmailJS
-      const result = await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
+      const payload = new FormData();
+      payload.append("access_key", WEB3FORMS_ACCESS_KEY);
+      payload.append("name", formData.name);
+      payload.append("phone", formData.phone);
+      payload.append("email", formData.email);
+      payload.append("service", formData.service);
+      payload.append("message", formData.message);
+      // Optional — nicer inbox formatting
+      payload.append(
+        "subject",
+        `Nouvelle demande de ${formData.name || "client"}`,
+      );
+      payload.append("from_name", "Site Web");
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: payload,
+      });
+
+      const data = await response.json();
+
+      if (!data.success) {
+        throw new Error(data.message || "Une erreur est survenue.");
+      }
+
+      setIsSubmitted(true);
+      setFormData({
+        name: "",
+        phone: "",
+        email: "",
+        service: "",
+        message: "",
+      });
+
+      // Success animation
+      gsap.fromTo(
+        ".success-check",
+        { scale: 0, opacity: 0, rotation: -180 },
         {
-          from_name: formData.name,
-          from_email: formData.email,
-          phone: formData.phone,
-          activity: formData.service,
-          message: formData.message,
+          scale: 1,
+          opacity: 1,
+          rotation: 0,
+          duration: 0.5,
+          ease: "back.out(0.6)",
         },
-        EMAILJS_PUBLIC_KEY,
       );
 
-      if (result.status === 200) {
-        setIsSubmitted(true);
-        setFormData({
-          name: "",
-          phone: "",
-          email: "",
-          service: "",
-          message: "",
-        });
-
-        // Success animation
-        gsap.fromTo(
-          ".success-check",
-          { scale: 0, opacity: 0, rotation: -180 },
-          {
-            scale: 1,
-            opacity: 1,
-            rotation: 0,
-            duration: 0.5,
-            ease: "back.out(0.6)",
-          },
-        );
-
-        setTimeout(() => {
-          setIsSubmitted(false);
-        }, 5000);
-      } else {
-        setError("Une erreur est survenue. Veuillez réessayer.");
-      }
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 5000);
     } catch (err) {
-      console.error("EmailJS error:", err);
-      setError("Une erreur est survenue. Veuillez réessayer.");
+      console.error("Web3Forms error:", err);
+      setError(err.message || "Une erreur est survenue. Veuillez réessayer.");
     } finally {
       setIsSubmitting(false);
     }
